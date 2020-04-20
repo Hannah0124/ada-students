@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import StudentCollection from './components/StudentCollection';
+import NewStudentForm from './components/NewStudentForm';
 
 const students = [
   {
@@ -46,6 +47,25 @@ function App() {
   };
 
 
+  const addStudent = (student) => {
+    // duplicate the student list 
+    const newStudentList = [...students];
+
+    // Find the max id and add 1 
+    // ... => spread operator => to change from 'array' to ", , , ," form
+    const nextId = Math.max(...newStudentList.map(student=> student.id)) + 1;
+
+    newStudentList.push({
+      id: nextId,
+      fullName: student.fullName, 
+      email: student.email, 
+      present: false
+    });
+
+    // Change status
+    setStudentList(newStudentList);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -53,6 +73,10 @@ function App() {
       </header>
 
       <main>
+        <NewStudentForm 
+          addStudentCallback={addStudent} // callback function
+        />
+
         <StudentCollection 
           students={studentList} 
           onUpdateStudent={updateStudent} // callback funciton

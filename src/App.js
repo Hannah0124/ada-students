@@ -1,24 +1,63 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import StudentCollection from './components/StudentCollection';
+
+const students = [
+  {
+    id: 1,
+    fullName: "Ada Lovelace",
+    email: "ada@lovelace.uk",
+    birthday: "December 10th, 1815",
+    present: true,
+  },
+  {
+    id: 2,
+    fullName: "Katherine Johnson",
+    email: "kat@nasa.gove",
+    birthday: "January 5th, 2000",
+    present: false,
+  },
+  {
+    id: 3,
+    fullName: "Goofy",
+    email: "goofy@goofy.com",
+    birthday: "July 7th, 1999",
+    present: true,
+  }
+];
 
 function App() {
+  console.log("rendering");
+
+  const [studentList, setStudentList] = useState(students);
+
+  const updateStudent = updatedStudent => {
+    const students = []; 
+
+    studentList.forEach(student => {
+      if (student.id === updatedStudent.id) {
+        students.push(updatedStudent);
+      } else {
+        students.push(student);
+      }
+    });
+
+    setStudentList(students);
+  };
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Ada Student!</h1>
       </header>
+
+      <main>
+        <StudentCollection 
+          students={studentList} 
+          onUpdateStudent={updateStudent} // callback funciton
+        />
+      </main>
     </div>
   );
 }

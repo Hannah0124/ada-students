@@ -1,0 +1,16 @@
+.student > ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.student {
+  text-align: center;
+}
+
+.student .absent {
+  color: red;
+}
+
+.student .present {
+  color: green;
+}
